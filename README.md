@@ -16,8 +16,8 @@
     npm install @mui/material @emotion/react @emotion/styled
     ```
 - create simple react counter app design
-- Add useState for count
-- see props drilling & re-rendering
+- Add useState for counter
+- see the props drilling happening in components & re-rendering using react developer chrome extension
   
   > **props drilling** - It is a problem when different component wanted to share some common state then that state has to define is LCA of both the component and pass through other component’s props even intermediator component don’t need that state.
   
