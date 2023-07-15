@@ -1,6 +1,6 @@
 <h1 align="center">Hi 👋, I'm Ashish</h1>
 <h3 align="center">This react App is demo of how to avoid props drilling and unnecessary re-rendering of component</h3>
-
+<h4 align="center"><a href="https://simple-react-with-recoil.vercel.app/" target="_blank" rel="noreferrer">App deployed here</a></h4>
 ## steps
 
 - create vite project    
