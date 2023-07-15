@@ -1,20 +1,11 @@
-import { createContext, useContext, useState } from 'react'
 import './App.css'
-import Card from '@mui/material/Card';
-import { Button, Typography } from '@mui/material';
-
-// create context to avoid props drilling
-const CounterContext = createContext();
+import { Button, Typography, Card } from '@mui/material';
+import { RecoilRoot, atom, useRecoilValue, useSetRecoilState } from 'recoil';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    // using this you dont need to pass props it automatically get it from global variable
-    <CounterContext.Provider value={{
-      count: count,
-      setCount: setCount
-    }}>
+    <RecoilRoot>
     <div style={{display: 'flex', justifyContent: 'center'}}>
       <Card style={{width: '400px', padding: '20px'}}>
         <Typography style={{display: 'flex', justifyContent: 'center'}} variant='h6'>Simple react count App</Typography>
@@ -22,12 +13,12 @@ function App() {
         <CounterComponent />
       </Card>
     </div>
-    </CounterContext.Provider>
+    </RecoilRoot>
   )
 }
 
 function CounterComponent() {
-  const {count} = useContext(CounterContext);
+  const count = useRecoilValue(counterState);
   return <div style={{display: 'flex', justifyContent: 'center', marginTop: 10}}>
     {count}
   </div>
@@ -35,19 +26,25 @@ function CounterComponent() {
 
 function Buttons() {
   return <div style={{display: 'flex', justifyContent: 'space-between', marginTop: 10}}>
-    <Increate />
+    <Increment />
     <Decrement />
   </div>
 }
 
-function Increate() {
-  const {count, setCount} = useContext(CounterContext);
-  return <Button variant="contained" onClick={() => setCount(count + 1)}>Increment</Button>
+function Increment() {
+  const setCount = useSetRecoilState(counterState)
+  return <Button variant="contained" onClick={() => setCount(currentCount => currentCount + 1)}>Increment</Button>
 }
 
 function Decrement() {
-  const {count, setCount} = useContext(CounterContext);
-  return <Button variant="contained" onClick={() => setCount(count - 1)}>Decrement</Button>
+  const setCount = useSetRecoilState(counterState)
+  return <Button variant="contained" onClick={() => setCount(currentCount => currentCount - 1)}>Decrement</Button>
 }
 
 export default App
+
+// atom is recoil way to define state
+const counterState = atom({
+  key: 'counterState', // unique ID (with respect to other atoms/selectors)
+  default: 0, // default value (aka initial value)
+});
